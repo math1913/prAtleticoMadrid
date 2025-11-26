@@ -96,7 +96,7 @@ const App: React.FC = () => {
               style={{ transform: 'translateY(40px) scale(0.95)' }}
             >
               {/* Uses ^ for the Nike Swoosh defined in fontMap. Adjusted padding to 2 spaces for balance. */}
-              <SeatGrid text="^ 1903 ^" rows={14} className="opacity-90 grayscale-[30%]" />
+              <SeatGrid text="^ 1903 ^" rows={14} cols={100} className="opacity-90 grayscale-[30%]" />
             </div>
 
             {/* LED BANNER & SHADOW CONTAINER */}

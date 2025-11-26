@@ -124,6 +124,22 @@ const App: React.FC = () => {
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+
+                                        {/* Duplicate for infinite loop */}
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+
+                    {/* Duplicate for infinite loop */}
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
                   </div>
 
                </div>
@@ -150,6 +166,30 @@ const App: React.FC = () => {
                ">
                   {/* Marquee Content */}
                   <div className="flex whitespace-nowrap animate-marquee">
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+                    
+                    {/* Duplicate for infinite loop */}
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+
+                                        {/* Duplicate for infinite loop */}
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
+                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
+                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+
+                    {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>

@@ -2,6 +2,7 @@ import requests
 import json
 import re
 import write_xml as w
+import time
 DEVICE_IP = "192.168.1.66"
 USERNAME = "admin"
 PASSWORD = "IloveAdmira!"
@@ -51,6 +52,9 @@ def process_part(part_bytes):
     print("subEventType:", ace.get("subEventType"))
     print("========================================\n")
 
+    time.sleep(8)
+    with open("HIKVISION.txt", "w") as f:
+        f.write("ATLETI")
 
 def main():
     print("Conectando al stream de Hikvision...\n")

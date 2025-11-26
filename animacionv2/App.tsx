@@ -8,6 +8,9 @@ const App: React.FC = () => {
   const [name, setName] = useState<string>('ATLETI');
   const [celebrating, setCelebrating] = useState<boolean>(false);
   
+  // NUEVO ESTADO PARA CONTROLAR SI EL USUARIO ESTÁ EDITANDO
+  const [editing, setEditing] = useState<boolean>(false);
+
   // Perspective Logic:
   // rotateX(10deg): Very slight tilt. The stand faces the user almost vertically like a wall.
   const transformStyle = {
@@ -37,8 +40,34 @@ const App: React.FC = () => {
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 14) {
       setName(e.target.value.toUpperCase());
+      setEditing(true); // Marcamos que el usuario está escribiendo
     }
   };
+
+  // --- NUEVO useEffect PARA LEER EL FICHERO EXTERNO CADA 3 SEGUNDOS ---
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      if (editing) return; // No sobrescribimos mientras el usuario escribe
+
+      try {
+        const res = await fetch("http://localhost:5000/name");
+        const data = await res.text();
+
+        if (data !== name) setName(data.toUpperCase().slice(0, 14));
+      } catch (err) {
+        console.error("Error leyendo el fichero:", err);
+      }
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [name, editing]);
+
+  // --- RESET EDITING DESPUÉS DE 2 SEGUNDOS SIN ESCRIBIR ---
+  useEffect(() => {
+    if (!editing) return;
+    const timeout = setTimeout(() => setEditing(false), 2000);
+    return () => clearTimeout(timeout);
+  }, [editing]);
 
   return (
     <div className="h-screen bg-black flex flex-col font-sans text-neutral-100 relative overflow-hidden selection:bg-red-500 selection:text-white">
@@ -95,22 +124,6 @@ const App: React.FC = () => {
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
-
-                                        {/* Duplicate for infinite loop */}
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
-
-                    {/* Duplicate for infinite loop */}
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
                   </div>
 
                </div>
@@ -137,30 +150,6 @@ const App: React.FC = () => {
                ">
                   {/* Marquee Content */}
                   <div className="flex whitespace-nowrap animate-marquee">
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
-                    
-                    {/* Duplicate for infinite loop */}
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
-
-                                        {/* Duplicate for infinite loop */}
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
-
-                    {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>

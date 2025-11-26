@@ -8,6 +8,9 @@ const App: React.FC = () => {
   const [name, setName] = useState<string>('ATLETI');
   const [celebrating, setCelebrating] = useState<boolean>(false);
   
+  // NUEVO ESTADO PARA CONTROLAR SI EL USUARIO ESTÁ EDITANDO
+  const [editing, setEditing] = useState<boolean>(false);
+
   // Perspective Logic:
   // rotateX(10deg): Very slight tilt. The stand faces the user almost vertically like a wall.
   const transformStyle = {
@@ -37,8 +40,34 @@ const App: React.FC = () => {
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 14) {
       setName(e.target.value.toUpperCase());
+      setEditing(true); // Marcamos que el usuario está escribiendo
     }
   };
+
+  // --- NUEVO useEffect PARA LEER EL FICHERO EXTERNO CADA 3 SEGUNDOS ---
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      if (editing) return; // No sobrescribimos mientras el usuario escribe
+
+      try {
+        const res = await fetch("http://localhost:5000/name");
+        const data = await res.text();
+
+        if (data !== name) setName(data.toUpperCase().slice(0, 14));
+      } catch (err) {
+        console.error("Error leyendo el fichero:", err);
+      }
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [name, editing]);
+
+  // --- RESET EDITING DESPUÉS DE 2 SEGUNDOS SIN ESCRIBIR ---
+  useEffect(() => {
+    if (!editing) return;
+    const timeout = setTimeout(() => setEditing(false), 2000);
+    return () => clearTimeout(timeout);
+  }, [editing]);
 
   return (
     <div className="h-screen bg-black flex flex-col font-sans text-neutral-100 relative overflow-hidden selection:bg-red-500 selection:text-white">

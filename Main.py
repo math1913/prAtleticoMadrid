@@ -2,7 +2,8 @@ import requests
 import json
 import re
 import write_xml as w
-DEVICE_IP = "192.168.1.67"
+import time
+DEVICE_IP = "192.168.1.66"
 USERNAME = "admin"
 PASSWORD = "IloveAdmira!"
 URL = f"http://{DEVICE_IP}/ISAPI/Event/notification/alertStream"
@@ -38,6 +39,10 @@ def process_part(part_bytes):
 
     # Mostrar resultado
     w.writeValor(str(ace.get("employeeNoString")))
+    
+    with open("HIKVISION.txt", "w") as f:
+        f.write(str(ace.get("name")))
+
     print("========== TARJETA DETECTADA ==========")
     print("CardNo:", ace.get("cardNo"))
     print("Usuario:", ace.get("name"))
@@ -47,6 +52,9 @@ def process_part(part_bytes):
     print("subEventType:", ace.get("subEventType"))
     print("========================================\n")
 
+    time.sleep(8)
+    with open("HIKVISION.txt", "w") as f:
+        f.write("ATLETI")
 
 def main():
     print("Conectando al stream de Hikvision...\n")

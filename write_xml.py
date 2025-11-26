@@ -5,7 +5,7 @@ import time
 def writeValor(texto: str):
 
     # Load the xml
-    tree = ET.parse('C:\\admira\\conditions\\biomax.xml')
+    tree = ET.parse('/opt/Admira/share/conditions/biomax.xml')
     root = tree.getroot()
 
     # Finds condition tag
@@ -19,4 +19,4 @@ def writeValor(texto: str):
     condition.set("tstamp", str(int(time.time())))
 
 
-    tree.write('C:\\admira\\conditions\\biomax.xml')
+    tree.write('/opt/Admira/share/conditions/biomax.xml')

@@ -14,7 +14,7 @@ const App: React.FC = () => {
   // Perspective Logic:
   // rotateX(10deg): Very slight tilt. The stand faces the user almost vertically like a wall.
   const transformStyle = {
-    transform: 'rotateX(10deg) scale(1) translateY(0%)', 
+    transform: 'rotateX(10deg) scale(1) translateY(-10%)', 
     transformStyle: 'preserve-3d' as const,
   };
   
@@ -26,7 +26,7 @@ const App: React.FC = () => {
 
     const timer = setTimeout(() => {
       triggerCelebration();
-    }, 1500);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [name]);
@@ -37,14 +37,15 @@ const App: React.FC = () => {
     setTimeout(() => setCelebrating(false), 4000);
   }, [name]);
 
+  {/*
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length <= 14) {
       setName(e.target.value.toUpperCase());
       setEditing(true); // Marcamos que el usuario está escribiendo
     }
-  };
+  };*/}
 
-  // --- NUEVO useEffect PARA LEER EL FICHERO EXTERNO CADA 3 SEGUNDOS ---
+  // --- useEffect PARA LEER EL FICHERO EXTERNO CADA 0.5 SEGUNDOS ---
   useEffect(() => {
     const interval = setInterval(async () => {
       if (editing) return; // No sobrescribimos mientras el usuario escribe
@@ -125,7 +126,7 @@ const App: React.FC = () => {
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
 
-                                        {/* Duplicate for infinite loop */}
+                    {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
@@ -181,7 +182,7 @@ const App: React.FC = () => {
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
 
-                                        {/* Duplicate for infinite loop */}
+                    {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
                     <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
@@ -201,33 +202,33 @@ const App: React.FC = () => {
                </div>
             </div>
 
-            {/* PITCH (GRASS) */}
-            <div 
-               className="
-                 absolute top-[90%] w-[200%] h-[1000px] 
-                 grass-texture
-                 origin-top
-               "
-               style={{ 
-                 transform: 'rotateX(60deg) translateY(-10px)',
-                 boxShadow: 'inset 0 20px 100px rgba(0,0,0,0.8)'
-               }}
-            >
-              {/* Pitch lines */}
-              <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[90%] h-[2px] bg-white/40"></div>
-              <div className="absolute top-10 left-[10%] w-[2px] h-[500px] bg-white/40"></div>
-              <div className="absolute top-10 right-[10%] w-[2px] h-[500px] bg-white/40"></div>
-            </div>
+          {/* PITCH (AREA 3D) */}
+          <div className="absolute inset-x-0 top-[72vh] flex justify-center pointer-events-none">
 
+            {/* CÉSPED ROTADO (solo esto está en 3D) */}
+            <div
+              className="w-[180vw] h-[120vh] grass-texture origin-top"
+              style={{
+                transform: 'rotateX(60deg) translateY(-2vh)',
+                transformStyle: 'preserve-3d',
+                boxShadow: 'inset 0 3vh 12vh rgba(0,0,0,0.8)',
+              }}
+            />
+
+            {/* LÍNEAS — SUPERPUESTAS Y SIEMPRE FIJAS ARRIBA (plano 2D que NO se deforma) */}
+            <div className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[160vw] h-[0.4vh] bg-white/60 z-50"></div>
+
+            <div className="absolute top-[10%] left-[50%] w-[0.5vh] h-[50vh] bg-white/60 z-50"></div>
+          </div>
         </div>
 
       </div>
 
-      {/* --- Controls Bar --- */}
+      {/* // --- Controls Bar --- 
       <div className="bg-neutral-900 border-t border-red-900/30 p-6 z-40 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
         <div className="max-w-3xl mx-auto w-full flex flex-col md:flex-row items-center gap-4">
           
-          {/* Input Field */}
+          // Input Field 
           <div className="relative w-full md:flex-grow group">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <Type className="h-5 w-5 text-neutral-500 group-focus-within:text-red-500 transition-colors" />
@@ -246,7 +247,7 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          {/* Action Buttons */}
+          // Action Buttons 
           <div className="flex gap-3 w-full md:w-auto">
              <button
               className="flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 
@@ -257,9 +258,9 @@ const App: React.FC = () => {
               <span>GUARDAR</span>
             </button>
           </div>
-
         </div>
       </div>
+      */}
     </div>
   );
 };

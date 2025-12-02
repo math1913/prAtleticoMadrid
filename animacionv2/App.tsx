@@ -70,6 +70,20 @@ const App: React.FC = () => {
     return () => clearTimeout(timeout);
   }, [editing]);
 
+  // --- Names for the carrusel ---
+  const names = [
+    { text: "MARC" },
+    { text: "MATEO" },
+    { text: "HANNA" },
+    { text: "OMAR" },
+    { text: "MARIA" },
+    { text: "GABRIEL" },
+    { text: "AGUSTIN" },
+    { text: "TOMMY" },
+    { text: "IVAN" },
+    { text: "YADIR" }
+  ];
+
   return (
     <div className="h-screen bg-black flex flex-col font-sans text-neutral-100 relative overflow-hidden selection:bg-red-500 selection:text-white">
       
@@ -112,35 +126,63 @@ const App: React.FC = () => {
                   {/* Marquee Content */}
                   <div className="flex whitespace-nowrap animate-marquee">
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+                    <div className="flex">
+                      {names.map((item, idx) => (
+                        <span
+                          key={idx}
+                          className={
+                            "text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider"
+                          }
+                        >
+                          {item.text}
+                        </span>
+                      ))}
+                    </div>
                     
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+                    <div className="flex">
+                      {names.map((item, idx) => (
+                        <span
+                          key={idx}
+                          className={
+                            "text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider"
+                          }
+                        >
+                          {item.text}
+                        </span>
+                      ))}
+                    </div>
 
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+                    <div className="flex">
+                      {names.map((item, idx) => (
+                        <span
+                          key={idx}
+                          className={
+                            "text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider"
+                          }
+                        >
+                          {item.text}
+                        </span>
+                      ))}
+                    </div>
 
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+                    <div className="flex">
+                      {names.map((item, idx) => (
+                        <span
+                          key={idx}
+                          className={
+                            "text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider"
+                          }
+                        >
+                          {item.text}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
                </div>
@@ -168,35 +210,63 @@ const App: React.FC = () => {
                   {/* Marquee Content */}
                   <div className="flex whitespace-nowrap animate-marquee">
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+                    <div className="flex">
+                      {names.map((item, idx) => (
+                        <span
+                          key={idx}
+                          className={
+                            "text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider"
+                          }
+                        >
+                          {item.text}
+                        </span>
+                      ))}
+                    </div>
                     
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+                    <div className="flex">
+                      {names.map((item, idx) => (
+                        <span
+                          key={idx}
+                          className={
+                            "text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider"
+                          }
+                        >
+                          {item.text}
+                        </span>
+                      ))}
+                    </div>
 
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+                    <div className="flex">
+                      {names.map((item, idx) => (
+                        <span
+                          key={idx}
+                          className={
+                            "text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider"
+                          }
+                        >
+                          {item.text}
+                        </span>
+                      ))}
+                    </div>
 
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">NIKE</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">TESLA</span>
-                    <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">1903</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Admira</span>
-                    <span className="text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider">Bits & Atoms</span>
+                    <div className="flex">
+                      {names.map((item, idx) => (
+                        <span
+                          key={idx}
+                          className={
+                            "text-white/80 font-bold text-sm md:text-lg px-8 tracking-wider"
+                          }
+                        >
+                          {item.text}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
                </div>

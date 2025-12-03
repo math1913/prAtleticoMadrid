@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { SeatGrid } from './components/SeatGrid';
-import { Confetti } from './components/Confetti';
-import { playCrowdCheer } from './utils/audio';
-import { Camera, Type } from 'lucide-react';
+// import { playCrowdCheer } from './utils/audio';
 
 const App: React.FC = () => {
   const [name, setName] = useState<string>('ATLETI');
@@ -18,43 +16,63 @@ const App: React.FC = () => {
     transformStyle: 'preserve-3d' as const,
   };
   
-  // Effect to handle celebration debounce
-  useEffect(() => {
-    setCelebrating(false); 
-    
-    if (name.trim().length === 0) return;
+  // Cola de nombres.
+  class NameQueue {
+    names: { text: string }[];
+    maxSize: number;
 
-    const timer = setTimeout(() => {
-      triggerCelebration();
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [name]);
-
-  const triggerCelebration = useCallback(() => {
-    setCelebrating(true);
-    playCrowdCheer(); // Plays Stadium Roar
-    setTimeout(() => setCelebrating(false), 4000);
-  }, [name]);
-
-  {/*
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length <= 14) {
-      setName(e.target.value.toUpperCase());
-      setEditing(true); // Marcamos que el usuario está escribiendo
+    constructor(names: { text: string }[], maxSize = 10) {
+      this.names = names;
+      this.maxSize = maxSize;
     }
-  };*/}
 
+    get list() {
+      return this.names;
+    }
+
+    addName(newName: string) {
+      this.names.push({ text: newName });
+
+      if (this.names.length > this.maxSize) {
+        this.names.shift();
+      }
+    }
+  }
+const queueRef = useRef(
+  new NameQueue(
+    [
+      { text: "MARC" },
+      { text: "MATEO" },
+      { text: "HANNA" },
+      { text: "OMAR" },
+      { text: "MARIA" },
+      { text: "GABRIEL" },
+      { text: "AGUSTIN" },
+      { text: "TOMMY" },
+      { text: "IVAN" },
+      { text: "YADIR" }
+    ],
+    10 // max
+  )
+);
+
+// Estado que se usa para pintar
+const [namesState, setNamesState] = useState(queueRef.current.list);
   // --- useEffect PARA LEER EL FICHERO EXTERNO CADA 0.5 SEGUNDOS ---
   useEffect(() => {
     const interval = setInterval(async () => {
-      if (editing) return; // No sobrescribimos mientras el usuario escribe
-
       try {
         const res = await fetch("http://localhost:5000/name");
         const data = await res.text();
 
-        if (data !== name) setName(data.toUpperCase().slice(0, 14));
+        if (data !== name) {
+          setName(data.toUpperCase().slice(0, 14));
+          if (data !== 'ATLETI') {
+            const queue = queueRef.current;
+            queue.addName(data.toUpperCase());
+            setNamesState([...queue.list]);
+          }
+        }
       } catch (err) {
         console.error("Error leyendo el fichero:", err);
       }
@@ -63,32 +81,8 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [name, editing]);
 
-  // --- RESET EDITING DESPUÉS DE 2 SEGUNDOS SIN ESCRIBIR ---
-  useEffect(() => {
-    if (!editing) return;
-    const timeout = setTimeout(() => setEditing(false), 2000);
-    return () => clearTimeout(timeout);
-  }, [editing]);
-
-  // --- Names for the carrusel ---
-  const names = [
-    { text: "MARC" },
-    { text: "MATEO" },
-    { text: "HANNA" },
-    { text: "OMAR" },
-    { text: "MARIA" },
-    { text: "GABRIEL" },
-    { text: "AGUSTIN" },
-    { text: "TOMMY" },
-    { text: "IVAN" },
-    { text: "YADIR" }
-  ];
-
   return (
     <div className="h-screen bg-black flex flex-col font-sans text-neutral-100 relative overflow-hidden selection:bg-red-500 selection:text-white">
-      
-      {/* Confetti Overlay */}
-      <Confetti isActive={celebrating} />
 
       {/* --- Main Visual Area --- */}
       <div 
@@ -127,7 +121,7 @@ const App: React.FC = () => {
                   <div className="flex whitespace-nowrap animate-marquee">
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <div className="flex">
-                      {names.map((item, idx) => (
+                      {namesState.map((item, idx) => (
                         <span
                           key={idx}
                           className={
@@ -142,7 +136,7 @@ const App: React.FC = () => {
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <div className="flex">
-                      {names.map((item, idx) => (
+                      {namesState.map((item, idx) => (
                         <span
                           key={idx}
                           className={
@@ -157,7 +151,7 @@ const App: React.FC = () => {
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <div className="flex">
-                      {names.map((item, idx) => (
+                      {namesState.map((item, idx) => (
                         <span
                           key={idx}
                           className={
@@ -172,7 +166,7 @@ const App: React.FC = () => {
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <div className="flex">
-                      {names.map((item, idx) => (
+                      {namesState.map((item, idx) => (
                         <span
                           key={idx}
                           className={
@@ -211,7 +205,7 @@ const App: React.FC = () => {
                   <div className="flex whitespace-nowrap animate-marquee">
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <div className="flex">
-                      {names.map((item, idx) => (
+                      {namesState.map((item, idx) => (
                         <span
                           key={idx}
                           className={
@@ -226,7 +220,7 @@ const App: React.FC = () => {
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <div className="flex">
-                      {names.map((item, idx) => (
+                      {namesState.map((item, idx) => (
                         <span
                           key={idx}
                           className={
@@ -241,7 +235,7 @@ const App: React.FC = () => {
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <div className="flex">
-                      {names.map((item, idx) => (
+                      {namesState.map((item, idx) => (
                         <span
                           key={idx}
                           className={
@@ -256,7 +250,7 @@ const App: React.FC = () => {
                     {/* Duplicate for infinite loop */}
                     <span className="text-red-500 font-black text-lg md:text-2xl px-8 tracking-widest drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]">ATLETICO DE MADRID</span>
                     <div className="flex">
-                      {names.map((item, idx) => (
+                      {namesState.map((item, idx) => (
                         <span
                           key={idx}
                           className={
@@ -293,44 +287,6 @@ const App: React.FC = () => {
         </div>
 
       </div>
-
-      {/* // --- Controls Bar --- 
-      <div className="bg-neutral-900 border-t border-red-900/30 p-6 z-40 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-        <div className="max-w-3xl mx-auto w-full flex flex-col md:flex-row items-center gap-4">
-          
-          // Input Field 
-          <div className="relative w-full md:flex-grow group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Type className="h-5 w-5 text-neutral-500 group-focus-within:text-red-500 transition-colors" />
-            </div>
-            <input
-              type="text"
-              value={name}
-              onChange={handleNameChange}
-              placeholder="NOMBRE"
-              className="block w-full pl-12 pr-4 py-4 bg-neutral-800 border border-neutral-700 rounded-xl 
-                         text-white placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent
-                         text-2xl font-black tracking-widest uppercase transition-all shadow-inner font-mono"
-            />
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-neutral-600">
-              {name.length}/14
-            </div>
-          </div>
-
-          // Action Buttons 
-          <div className="flex gap-3 w-full md:w-auto">
-             <button
-              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-8 py-4 
-                         bg-red-700 hover:bg-red-600 text-white rounded-xl font-bold 
-                         shadow-[0_4px_14px_rgba(220,38,38,0.4)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.6)]
-                         transition-all active:scale-95 border border-red-500"
-            >
-              <span>GUARDAR</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      */}
     </div>
   );
 };

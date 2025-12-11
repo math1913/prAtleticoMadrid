@@ -42,16 +42,16 @@ const App: React.FC = () => {
 const queueRef = useRef(
   new NameQueue(
     [
-      { text: "MARC" },
-      { text: "MATEO" },
-      { text: "HANNA" },
-      { text: "OMAR" },
-      { text: "MARIA" },
-      { text: "GABRIEL" },
-      { text: "AGUSTIN" },
-      { text: "TOMMY" },
-      { text: "IVAN" },
-      { text: "YADIR" }
+      { text: "MARC BERTRAN" },
+      { text: "MATEO HUERTAS" },
+      { text: "HANNA ZIPA" },
+      { text: "OMAR MEHENNI" },
+      { text: "MARIA PEREZ" },
+      { text: "GABRIEL RADU" },
+      { text: "AGUSTIN LATIENDA" },
+      { text: "TOMMY GIL" },
+      { text: "JOSHUA SEDANO" },
+      { text: "JOEL GHANEM" }
     ],
     10 // max
   )

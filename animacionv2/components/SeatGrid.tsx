@@ -41,8 +41,7 @@ const computeDiff = (current: Matrix, target: Matrix): Cell[] => {
 };
 
 // Parámetros de animación
-const ANIMATION_INTERVAL_MS = 80;   // ajusta para más rápido/lento
-const PIXELS_PER_TICK = 30;        // cuántas butacas cambian por “tick”
+const ANIMATION_INTERVAL_MS = 40;   // ajusta para más rápido/lento
 
 export const SeatGrid: React.FC<SeatGridProps> = ({
   text,

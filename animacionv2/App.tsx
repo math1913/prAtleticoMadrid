@@ -3,7 +3,8 @@ import { SeatGrid } from './components/SeatGrid';
 // import { playCrowdCheer } from './utils/audio';
 
 const App: React.FC = () => {
-  const [name, setName] = useState<string>('ATLETI');
+  const [name, setName] = useState<string>('ATLETI MADRID 1903');
+  const [antiguedad, setAntiguedad] = useState<string>('1903');
   const [celebrating, setCelebrating] = useState<boolean>(false);
   
   // NUEVO ESTADO PARA CONTROLAR SI EL USUARIO ESTÁ EDITANDO
@@ -64,12 +65,20 @@ const [namesState, setNamesState] = useState(queueRef.current.list);
       try {
         const res = await fetch("http://localhost:5000/name");
         const data = await res.text();
+        const dataArray = data.split(" ");
+        const nombre = dataArray[0];
+        const nameSurname = dataArray[0].concat( " " + dataArray[1]);
+        if (dataArray[2] === "^1903^") {
+          setAntiguedad(dataArray[2]);
+        } else {
+          setAntiguedad("since " + dataArray[2])
+        }
 
-        if (data !== name) {
-          setName(data.toUpperCase().slice(0, 14));
-          if (data !== 'ATLETI') {
+        if (nameSurname !== name) {
+          setName(nameSurname);
+          if (data !== 'ATLETI MADRID ^1903^') {
             const queue = queueRef.current;
-            queue.addName(data.toUpperCase());
+            queue.addName(nameSurname.toUpperCase());
             setNamesState([...queue.list]);
           }
         }
@@ -105,7 +114,7 @@ const [namesState, setNamesState] = useState(queueRef.current.list);
               style={{ transform: 'translateY(40px) scale(0.95)' }}
             >
               {/* Uses ^ for the Nike Swoosh defined in fontMap. Adjusted padding to 2 spaces for balance. */}
-              <SeatGrid text="^ 1903 ^" rows={14} cols={100} className="opacity-90 grayscale-[30%]" />
+              <SeatGrid text= {antiguedad} rows={20} className="opacity-90 grayscale-[30%]" />
             </div>
 
             {/* LED BANNER & SHADOW CONTAINER */}
@@ -191,7 +200,7 @@ const [namesState, setNamesState] = useState(queueRef.current.list);
               className="relative z-10"
               style={{ transform: 'translateY(-30px) ' }}
             >
-              <SeatGrid text={name} rows={20} />
+              <SeatGrid text={name.split(" ")[0]} rows={20} />
             </div>
             <div className="relative z-20 w-[120%] flex flex-col items-center" style={{ transform: 'translateY(-80px)' }}>
                {/* THE LED SCREEN */}
